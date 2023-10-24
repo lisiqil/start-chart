@@ -1,0 +1,18 @@
+{
+  "auth": {
+    "s_key": "8973cc867dd8f-27022947e9695",
+    "expire": 600
+  },
+  "error_code": {
+    "4000": "缺少鉴权参数",
+    "4001": "鉴权失败",
+    "4002": "鉴权失败",
+    "4003": "鉴权失败",
+    "5000": "服务繁忙"
+  },
+  "log": {
+    "filename": "develop.log",
+    "format": "%(asctime)s:  %(levelname)s:%(name)s:%(message)s",
+    "level": "debug"
+  }
+}

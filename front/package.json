@@ -1,0 +1,23 @@
+{
+  "name": "chat",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vavt/util": "https://mirrors.tencent.com/npm/@vavt/util/-/util-1.3.0.tgz",
+    "axios": "^1.5.0",
+    "md-editor-v3": "^4.5.0",
+    "tdesign-vue-next": "^1.5.3",
+    "vue": "^3.3.4",
+    "vuex": "^4.1.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.2.3",
+    "vite": "^4.4.5"
+  }
+}
