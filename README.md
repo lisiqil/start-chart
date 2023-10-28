@@ -4,10 +4,52 @@
 
 ## 简介
 
-简单描述一下本文章里会教大家做的东西
-1、搭建大模型基础环境
-2、fastapi 封装接口 + 前端页面，做自己的语言模型
-3、github 地址： https://github.com/lisiqil/start-chart
+欲练此功，不必自宫。
+
+### 废话不多说，先看实现的结果
+
+- 因为手里也没有合适跑 AI 模型的机器是在腾讯云上薅的，几十块租了一星期练手。机器到期了所以只有一些实现效果截图。跑了 starchat（语言模型） 和 clip（图像识别）两个模型。
+- 套壳后的 startchat ，如图：（哈哈）
+  ![在这里插入图片描述](https://nisqy-1256845982.cos.ap-nanjing.myqcloud.com/course/starchart03.png)
+- 看一下运行时的显存（跑起来差不多用了 18 个 G）
+  ![请添加图片描述](https://nisqy-1256845982.cos.ap-nanjing.myqcloud.com/course/starchart02.png)
+
+- 这个是完整页面示例，前端页面有一些可调参数
+  ![请添加图片描述](https://nisqy-1256845982.cos.ap-nanjing.myqcloud.com/course/starchart01.png)
+- clip 运行的情况 （clip 相对没 starchat 这么吃显存）
+  ![在这里插入图片描述](https://nisqy-1256845982.cos.ap-nanjing.myqcloud.com/course/starchart05.png)
+- clip_example 如下
+
+```shell
+import torch
+import clip
+from torchvision.transforms import ToPILImage
+
+model_name = "ViT-B/32"
+model, preprocess = clip.load(model_name, device="cpu")
+
+# 随机生成一个 224x224 的图像
+image_tensor = torch.randn(1, 3, 224, 224)
+to_pil = ToPILImage()
+image = to_pil(image_tensor.squeeze())
+
+text = ["a photo of a cat"]  # 文本描述
+
+# 编码和对齐
+with torch.no_grad():
+    image_features = model.encode_image(preprocess(image).unsqueeze(0))
+    text_features = model.encode_text(clip.tokenize(text))
+
+# 计算相似度
+similarity = (100.0 * image_features @ text_features.T).softmax(dim=-1)
+# 输出结果
+print(similarity)
+```
+
+![在这里插入图片描述](https://nisqy-1256845982.cos.ap-nanjing.myqcloud.com/course/starchart04.png)
+
+- 应用的 github 地址：
+  https://github.com/lisiqil/start-chart
 
 ## 搭建
 
@@ -203,19 +245,3 @@ print(output)
 前后端封装相对比较简单，主要干的就是：fastapi 封装应用接口、大模型输出结果用接口返回给前端页面、前端页面收集到的问题和参数通过接口调用大模型。代码已传。
 
 有点开发经验的同学应该能看懂，该文主要是分享记录大模型基础环境的搭建，就不赘述这部分内容啦。
-
-## 实现效果截图 和 一点后续的废话：
-
-- 本人手里也没有合适跑 AI 模型的机器，是在腾讯云上薅了一个新用户的福利，几十块租了一星期练手。后面机器到期了所以没法发链接给读者亲身体验，不过一些步骤有截图记录，同时项目上传了 github 仓库，会提供 git 地址。跑了 starchat（语言模型） 和 clip（图像识别）两个模型。
-- 套壳后的 startchat ，如图：（哈哈）
-  ![在这里插入图片描述](https://img-blog.csdnimg.cn/6a900802e3e84644a192f77381981025.png)
-- 看一下运行时的显存（跑起来差不多用了 18 个 G）
-  ![请添加图片描述](https://img-blog.csdnimg.cn/45ade505609d4b328563f5857601eaff.png)
-
-- 这个是完整页面，前端页面有一些可调参数
-  ![请添加图片描述](https://img-blog.csdnimg.cn/4a4be306756245a79b97aeb4fc43a1dc.png)
-- clip 运行的情况 （clip 相对没 starchat 这么吃显存）
-  ![在这里插入图片描述](https://img-blog.csdnimg.cn/5b25c3ac5c8949afb447f6c7799599f2.png)
-  ![在这里插入图片描述](https://img-blog.csdnimg.cn/c24483e31f49460ca6bf8f51066f4098.png)
-- 应用的 github 地址：
-  https://github.com/lisiqil/start-chart
