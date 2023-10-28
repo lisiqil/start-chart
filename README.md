@@ -10,14 +10,14 @@
 
 - 因为手里也没有合适跑 AI 模型的机器是在腾讯云上薅的，几十块租了一星期练手。机器到期了所以只有一些实现效果截图。跑了 starchat（语言模型） 和 clip（图像识别）两个模型。
 - 套壳后的 startchat ，如图：（哈哈）
-  ![在这里插入图片描述](https://nisqy-1256845982.cos.ap-nanjing.myqcloud.com/course/starchart03.png)
+  ![在这里插入图片描述](./imgs/starchart03.png)
 - 看一下运行时的显存（跑起来差不多用了 18 个 G）
-  ![请添加图片描述](https://nisqy-1256845982.cos.ap-nanjing.myqcloud.com/course/starchart02.png)
+  ![请添加图片描述](./imgs/starchart02.png)
 
 - 这个是完整页面示例，前端页面有一些可调参数
-  ![请添加图片描述](https://nisqy-1256845982.cos.ap-nanjing.myqcloud.com/course/starchart01.png)
+  ![请添加图片描述](./imgs/starchart01.png)
 - clip 运行的情况 （clip 相对没 starchat 这么吃显存）
-  ![在这里插入图片描述](https://nisqy-1256845982.cos.ap-nanjing.myqcloud.com/course/starchart05.png)
+  ![在这里插入图片描述](./imgs/starchart05.png)
 - clip_example 如下
 
 ```shell
@@ -46,7 +46,7 @@ similarity = (100.0 * image_features @ text_features.T).softmax(dim=-1)
 print(similarity)
 ```
 
-![在这里插入图片描述](https://nisqy-1256845982.cos.ap-nanjing.myqcloud.com/course/starchart04.png)
+![在这里插入图片描述](./imgs/starchart04.png)
 
 - 应用的 github 地址：
   https://github.com/lisiqil/start-chart
@@ -244,4 +244,3 @@ print(output)
 
 - 前后端封装的过程就不过多赘叙了，相对比较简单代码里面有。
 - 主要干的就是：fastapi 封装应用接口、大模型输出结果用接口返回给前端页面、前端页面收集到的问题和参数通过接口调用大模型。代码已传。
-
